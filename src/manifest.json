@@ -19,7 +19,7 @@
         "https://djadmin.onpoint.vn/*",
         "https://stg-djadmin.onpoint.vn/*",
         "https://uat-djadmin.onpoint.vn/*",
-        "https://dev-gdadmin.onpoint.vn/*",
+        "https://dev-gddjadmin.onpoint.vn/*",
         "https://gddjadmin.onpoint.vn/*"
       ]
     }
