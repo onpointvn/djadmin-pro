@@ -24,7 +24,7 @@ function applyFilter(searchParams, columnName) {
         searchParams.set(`${columnName}__regex`, `^\s*$`);
         return true;
       } else if (value === "False") {
-        searchParams.set(`${columnName}__regex`, `\S`);
+        searchParams.set(`${columnName}__regex`, `\\S`);
         return true;
       }
 
@@ -287,6 +287,36 @@ function appendFilterButtons() {
     const tableColumn = classNames.find((c) => c.startsWith("column-"));
     const columnName = tableColumn.split("-")[1];
 
+    // Append copy button
+    var copyButton = document.createElement("button");
+    copyButton.className = "btn-secondary";
+    copyButton.innerHTML = "Copy";
+    col.prepend(copyButton);
+
+    copyButton.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      var valueCols = document.querySelectorAll(
+        `#result_list tbody .field-${columnName}`
+      );
+      var values = [];
+      valueCols.forEach(function (el) {
+        let content = el.textContent;
+        if (el.children[0]?.tagName?.toLocaleLowerCase() === "a") {
+          content = content.replace(/\w+\s?\((\d+)\)/, "$1");
+        }
+
+        values.push(content);
+      });
+
+      navigator.clipboard.writeText(values.join("\n"));
+
+      copyButton.innerHTML = "Copied";
+      setTimeout(() => {
+        copyButton.innerHTML = "Copy";
+      }, 500);
+    });
+
     var button = document.createElement("button");
     button.className = "filter";
     button.innerHTML = columnName;
@@ -304,7 +334,10 @@ function appendFilterButtons() {
 
 function bindSearchField() {
   document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "j") {
+    if (
+      (event.ctrlKey && event.key === "j") ||
+      (event.shiftKey && event.altKey && event.key === "p")
+    ) {
       showModal(null, false);
       setTimeout(() => {
         selectInstance.focus();
@@ -329,6 +362,18 @@ function bindFilterApply() {
   });
 }
 
+function cleanDecimalValue() {
+  const pattern = /^(\d+.0{2})(0{10,})(.*)$/;
+  document
+    .querySelectorAll('#result_list td[class^="field-"]')
+    .forEach(function (el) {
+      const text = el.textContent;
+      if (text.match(pattern)) {
+        el.textContent = text.replace(pattern, "$1");
+      }
+    });
+}
+
 function bindingHotkey() {
   bindSearchField();
   bindFilterApply();
@@ -338,3 +383,4 @@ function bindingHotkey() {
 appendModal();
 appendFilterButtons();
 bindingHotkey();
+cleanDecimalValue();

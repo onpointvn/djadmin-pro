@@ -1,4 +1,4 @@
-# Add some magic to Dj Admin
+# Add some magic to Django
 
 An Awesome extension that help quering with django faster and easier
 
@@ -11,15 +11,13 @@ An Awesome extension that help quering with django faster and easier
 
 ## II. Install
 Download extension
-### [Download](https://github.com/onpointvn/djadmin-pro/releases)
+### [Download](https://github.com/quangvo09/djadmin-pro/releases)
 
-### For Chrome
-- Open Extension page
-
-- Drag and drop extention file to Extension page
-
-- And Click `Continue`
-![chrome install](./docs/img/chrome-install.png)
+### For Chrome ("Load unpacked extension")
+1. Download and unpack the source code from the latest release or git-clone the master branch of this repository into a local folder
+2. Navigate to chrome://extensions
+3. Enable developer mode
+4. Click on "Load unpacked extension" and select folder
 
 
 ### Firefox
@@ -64,3 +62,31 @@ Search table name and then
 + `Enter` to open selected table
 + `Ctrl + Enter`/`Cmd + Enter` to open selected table in a new tab
 
+
+## IV. Query with SQL like syntax
+
+### Usage
+
+- Press `Ctrl + k` to show pop up
+- Press `Enter` to execute command
+
+```shell
+# open table  
+from octosells.users
+
+# query with conditions
+from octosells.users where is_activated = true
+
+# set alias
+alias octosells as os
+alias octosells.users as osu
+
+# query with alias
+from osu where name like %bluzky%
+
+# query with relationship
+from os.users where role.code = admin
+```
+
+### Support operators
+`=`, `>`, `>=`, `<`, `<=`, `like`, `ilike`, `in`, `is null`, `is not null`
