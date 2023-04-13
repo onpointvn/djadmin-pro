@@ -10,15 +10,17 @@
         "nice-select2.js",
         "content.js",
         "searchTable.js",
-          "injects/inject-app-list.js",
-          "djquery.js"
+        "injects/inject-app-list.js",
+        "djquery.js"
       ],
       "css": ["nice-select2.css", "content.css", "djquery.css"],
       "matches": [
         "https://dev-djadmin.onpoint.vn/*",
         "https://djadmin.onpoint.vn/*",
         "https://stg-djadmin.onpoint.vn/*",
-        "https://uat-djadmin.onpoint.vn/*"
+        "https://uat-djadmin.onpoint.vn/*",
+        "https://dev-gdadmin.onpoint.vn/*",
+        "https://gddjadmin.onpoint.vn/*"
       ]
     }
   ],
